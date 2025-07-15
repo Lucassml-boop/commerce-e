@@ -4,10 +4,11 @@ import { useAuth } from '../hooks/useAuth'
 interface HeaderProps {
   onLoginClick: (isLoginMode: boolean) => void
   onAdminClick: () => void
+  onHomeClick: () => void
   showingAdmin: boolean
 }
 
-export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, showingAdmin }) => {
+export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHomeClick, showingAdmin }) => {
   const { user, signOut } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const [showUserDropdown, setShowUserDropdown] = useState(false)
@@ -60,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, show
               </h1>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Início</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); onHomeClick(); }} className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Início</a>
               <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Produtos</a>
               <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Categorias</a>
               <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Ofertas</a>

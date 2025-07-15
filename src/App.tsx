@@ -33,6 +33,11 @@ const AppContent: React.FC = () => {
     setIsLoginMode(!isLoginMode)
   }
 
+  const handleHomeClick = () => {
+    setShowLogin(false)
+    setShowAdmin(false)
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -57,6 +62,7 @@ const AppContent: React.FC = () => {
       <Header 
         onLoginClick={handleLoginClick} 
         onAdminClick={handleAdminClick}
+        onHomeClick={handleHomeClick}
         showingAdmin={showAdmin}
       />
       <main className="min-h-screen">
