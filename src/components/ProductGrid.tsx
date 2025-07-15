@@ -105,7 +105,7 @@ export const ProductGrid: React.FC = () => {
                   </div>
                   {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">Esgotado</span>
+                      <span className="text-gray-900 font-bold text-lg">Esgotado</span>
                     </div>
                   )}
                 </div>
@@ -140,7 +140,7 @@ export const ProductGrid: React.FC = () => {
                     className={`w-full py-3 px-4 rounded-lg font-bold transition-all duration-200 ${
                       product.stock === 0
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
+                        : 'bg-blue-600 hover:bg-blue-700 text-gray-900 shadow-md hover:shadow-lg'
                     }`}
                   >
                     {product.stock === 0 ? 'Fora de Estoque' : 'Adicionar ao Carrinho'}
