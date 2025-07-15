@@ -84,12 +84,12 @@ export const ProductGrid: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (
-              <div key={product.id} className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200">
-                <div className="relative overflow-hidden">
+              <div key={product.id} className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 flex flex-col h-full">
+                <div className="relative overflow-hidden h-64 flex-shrink-0">
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x400/E5E7EB/9CA3AF?text=Produto'
                     }}
@@ -105,23 +105,27 @@ export const ProductGrid: React.FC = () => {
                   </div>
                   {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                      <span className="text-gray-900 font-bold text-lg">Esgotado</span>
+                      <span className="text-white font-bold text-lg">Esgotado</span>
                     </div>
                   )}
                 </div>
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <div className="mb-3">
                     <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
                       {product.category}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">{product.name}</h3>
+                  <p className="text-gray-600 text-sm mb-4 min-h-[4.5rem] flex-grow overflow-hidden">
+                    <span className="line-clamp-3">
+                      {product.description}
+                    </span>
+                  </p>
                   
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
-                      <span className="text-3xl font-bold text-blue-600">
+                      <span className="text-2xl font-bold text-blue-600">
                         R$ {product.price.toFixed(2)}
                       </span>
                     </div>
@@ -137,7 +141,7 @@ export const ProductGrid: React.FC = () => {
                   <button
                     onClick={() => addToCart(product.id)}
                     disabled={product.stock === 0}
-                    className={`w-full py-3 px-4 rounded-lg font-bold transition-all duration-200 ${
+                    className={`w-full py-3 px-4 rounded-lg font-bold transition-all duration-200 mt-auto ${
                       product.stock === 0
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         : 'bg-blue-600 hover:bg-blue-700 text-gray-900 shadow-md hover:shadow-lg'
