@@ -60,45 +60,92 @@ export const ProductGrid: React.FC = () => {
   }
 
   return (
-    <div className="bg-white">
-      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 mb-8">
-          Nossos Produtos
-        </h2>
+    <div className="bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Produtos em <span className="text-blue-600">Destaque</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Descubra nossa seleção exclusiva de produtos com a melhor qualidade e preços imbatíveis
+          </p>
+        </div>
 
         {products.length === 0 ? (
-          <div className="text-center text-gray-500">
-            <p>Nenhum produto encontrado.</p>
+          <div className="text-center py-16">
+            <div className="w-24 h-24 mx-auto mb-6 bg-gray-200 rounded-lg flex items-center justify-center">
+              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Nenhum produto encontrado</h3>
+            <p className="text-gray-600">Em breve teremos novidades incríveis para você!</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (
-              <div key={product.id} className="group">
-                <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+              <div key={product.id} className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200">
+                <div className="relative overflow-hidden">
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-full object-center object-cover group-hover:opacity-75"
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x300?text=Produto'
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x400/E5E7EB/9CA3AF?text=Produto'
                     }}
                   />
+                  <div className="absolute top-4 right-4">
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      product.stock > 0 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {product.stock > 0 ? `${product.stock} disponíveis` : 'Esgotado'}
+                    </span>
+                  </div>
+                  {product.stock === 0 && (
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">Esgotado</span>
+                    </div>
+                  )}
                 </div>
-                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">
-                  R$ {product.price.toFixed(2)}
-                </p>
-                <p className="mt-1 text-sm text-gray-500">{product.description}</p>
-                <p className="mt-1 text-sm text-gray-500">
-                  Estoque: {product.stock} unidades
-                </p>
-                <button
-                  onClick={() => addToCart(product.id)}
-                  className="mt-2 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  disabled={product.stock === 0}
-                >
-                  {product.stock === 0 ? 'Fora de Estoque' : 'Adicionar ao Carrinho'}
-                </button>
+                
+                <div className="p-6">
+                  <div className="mb-3">
+                    <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {product.category}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                  
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <span className="text-3xl font-bold text-blue-600">
+                        R$ {product.price.toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex text-orange-400">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={() => addToCart(product.id)}
+                    disabled={product.stock === 0}
+                    className={`w-full py-3 px-4 rounded-lg font-bold transition-all duration-200 ${
+                      product.stock === 0
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
+                    }`}
+                  >
+                    {product.stock === 0 ? 'Fora de Estoque' : 'Adicionar ao Carrinho'}
+                  </button>
+                </div>
               </div>
             ))}
           </div>
