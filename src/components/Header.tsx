@@ -1,17 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
+import { supabase } from '../lib/supabase'
 
 interface HeaderProps {
   onLoginClick: (isLoginMode: boolean) => void
   onAdminClick: () => void
   onHomeClick: () => void
+  onCartClick: () => void
   showingAdmin: boolean
 }
 
-export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHomeClick, showingAdmin }) => {
+export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHomeClick, onCartClick, showingAdmin }) => {
   const { user, signOut } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const [showUserDropdown, setShowUserDropdown] = useState(false)
+  const [cartItemsCount, setCartItemsCount] = useState(0)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const userDropdownRef = useRef<HTMLDivElement>(null)
 
@@ -19,6 +22,55 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHo
     await signOut()
     setShowUserDropdown(false)
   }
+
+  // Fetch cart items count
+  const fetchCartItemsCount = async () => {
+    if (!user) {
+      setCartItemsCount(0)
+      return
+    }
+
+    try {
+      const { count, error } = await supabase
+        .from('cart_items')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+
+      if (error) throw error
+      setCartItemsCount(count || 0)
+    } catch (error) {
+      console.error('Erro ao buscar itens do carrinho:', error)
+    }
+  }
+
+  // Update cart count when user changes
+  useEffect(() => {
+    fetchCartItemsCount()
+  }, [user])
+
+  // Set up real-time subscription for cart updates
+  useEffect(() => {
+    if (!user) return
+
+    const subscription = supabase
+      .channel('cart_changes')
+      .on('postgres_changes', 
+        { 
+          event: '*', 
+          schema: 'public', 
+          table: 'cart_items',
+          filter: `user_id=eq.${user.id}`
+        }, 
+        () => {
+          fetchCartItemsCount()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [user])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -71,6 +123,21 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHo
           <div className="flex items-center space-x-4">
             {user ? (
               <>
+                {/* Cart Icon */}
+                <button
+                  onClick={onCartClick}
+                  className="relative p-2 text-blue-500 hover:text-blue-200 transition-colors duration-200"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L3 3m4 10v6a2 2 0 002 2h6a2 2 0 002-2v-6" />
+                  </svg>
+                  {cartItemsCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                      {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                    </span>
+                  )}
+                </button>
+
                 <div className="relative" ref={userDropdownRef}>
                   <button
                     onClick={() => setShowUserDropdown(!showUserDropdown)}

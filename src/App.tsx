@@ -6,27 +6,32 @@ import { LoginForm } from './components/LoginForm'
 import { ProductGrid } from './components/ProductGrid'
 import { AdminPanel } from './components/AdminPanel'
 import { PromoBanner } from './components/PromoBanner'
+import { Cart } from './components/Cart'
 
 const AppContent: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showAdmin, setShowAdmin] = useState(false)
+  const [showCart, setShowCart] = useState(false)
   const { user, loading } = useAuth()
 
   const handleLoginClick = (isLoginMode: boolean) => {
     setIsLoginMode(isLoginMode)
     setShowLogin(true)
     setShowAdmin(false)
+    setShowCart(false)
   }
 
   const handleBackClick = () => {
     setShowLogin(false)
     setShowAdmin(false)
+    setShowCart(false)
   }
 
   const handleAdminClick = () => {
     setShowAdmin(!showAdmin)
     setShowLogin(false)
+    setShowCart(false)
   }
 
   const handleToggleMode = () => {
@@ -34,6 +39,13 @@ const AppContent: React.FC = () => {
   }
 
   const handleHomeClick = () => {
+    setShowLogin(false)
+    setShowAdmin(false)
+    setShowCart(false)
+  }
+
+  const handleCartClick = () => {
+    setShowCart(true)
     setShowLogin(false)
     setShowAdmin(false)
   }
@@ -56,6 +68,10 @@ const AppContent: React.FC = () => {
     )
   }
 
+  if (showCart && user) {
+    return <Cart onBack={handleBackClick} />
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <PromoBanner />
@@ -63,6 +79,7 @@ const AppContent: React.FC = () => {
         onLoginClick={handleLoginClick} 
         onAdminClick={handleAdminClick}
         onHomeClick={handleHomeClick}
+        onCartClick={handleCartClick}
         showingAdmin={showAdmin}
       />
       <main className="min-h-screen">

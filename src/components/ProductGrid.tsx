@@ -35,16 +35,41 @@ export const ProductGrid: React.FC = () => {
     }
 
     try {
-      const { error } = await supabase
+      // First, check if the product is already in the cart
+      const { data: existingItem, error: checkError } = await supabase
         .from('cart_items')
-        .insert({
-          user_id: user.id,
-          product_id: productId,
-          quantity: 1
-        })
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('product_id', productId)
+        .single()
 
-      if (error) throw error
-      alert('Produto adicionado ao carrinho!')
+      if (checkError && checkError.code !== 'PGRST116') {
+        // PGRST116 is "not found" error, which is expected if item doesn't exist
+        throw checkError
+      }
+
+      if (existingItem) {
+        // Update existing item quantity
+        const { error: updateError } = await supabase
+          .from('cart_items')
+          .update({ quantity: existingItem.quantity + 1 })
+          .eq('id', existingItem.id)
+
+        if (updateError) throw updateError
+        alert('Quantidade do produto atualizada no carrinho!')
+      } else {
+        // Insert new item
+        const { error: insertError } = await supabase
+          .from('cart_items')
+          .insert({
+            user_id: user.id,
+            product_id: productId,
+            quantity: 1
+          })
+
+        if (insertError) throw insertError
+        alert('Produto adicionado ao carrinho!')
+      }
     } catch (error) {
       console.error('Erro ao adicionar ao carrinho:', error)
       alert('Erro ao adicionar produto ao carrinho')
