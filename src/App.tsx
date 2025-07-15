@@ -6,7 +6,6 @@ import { LoginForm } from './components/LoginForm'
 import { ProductGrid } from './components/ProductGrid'
 import { AdminPanel } from './components/AdminPanel'
 import { PromoBanner } from './components/PromoBanner'
-import './App.css'
 
 const AppContent: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false)
@@ -14,7 +13,8 @@ const AppContent: React.FC = () => {
   const [showAdmin, setShowAdmin] = useState(false)
   const { user, loading } = useAuth()
 
-  const handleLoginClick = () => {
+  const handleLoginClick = (isLoginMode: boolean) => {
+    setIsLoginMode(isLoginMode)
     setShowLogin(true)
     setShowAdmin(false)
   }
