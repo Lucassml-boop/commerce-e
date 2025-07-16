@@ -23,6 +23,11 @@ export interface Product {
   category: string
   stock: number
   created_at: string
+  is_on_offer?: boolean
+  original_price?: number
+  discount_percentage?: number
+  offer_start_date?: string
+  offer_end_date?: string
 }
 
 export interface CartItem {

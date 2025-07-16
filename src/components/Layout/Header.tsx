@@ -68,9 +68,30 @@ export const Header: React.FC = () => {
               >
                 Início
               </Link>
-              <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Produtos</a>
-              <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Categorias</a>
-              <a href="#" className="text-white hover:text-blue-200 transition-colors duration-200 font-medium">Ofertas</a>
+              <Link 
+                to="/produtos" 
+                className={`text-white hover:text-blue-200 transition-colors duration-200 font-medium ${
+                  location.pathname === '/produtos' ? 'text-blue-200' : ''
+                }`}
+              >
+                Produtos
+              </Link>
+              <Link 
+                to="/categorias" 
+                className={`text-white hover:text-blue-200 transition-colors duration-200 font-medium ${
+                  location.pathname === '/categorias' ? 'text-blue-200' : ''
+                }`}
+              >
+                Categorias
+              </Link>
+              <Link 
+                to="/ofertas" 
+                className={`text-white hover:text-blue-200 transition-colors duration-200 font-medium ${
+                  location.pathname === '/ofertas' ? 'text-blue-200' : ''
+                }`}
+              >
+                Ofertas
+              </Link>
             </nav>
           </div>
 
@@ -83,7 +104,7 @@ export const Header: React.FC = () => {
                   className="relative p-2 text-white hover:text-blue-200 transition-colors duration-200"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L3 3m4 10v6a2 2 0 002 2h6a2 2 0 002-2v-6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7a2 2 0 01-2 2H8a2 2 0 01-2-2L5 9z" />
                   </svg>
                   {cartItemsCount > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
@@ -102,8 +123,8 @@ export const Header: React.FC = () => {
                         {(user.user_metadata?.full_name || user.email || 'U').charAt(0).toUpperCase()}
                       </span>
                     </div>
-                    <span className="text-white font-medium hidden sm:block">
-                      {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                    <span className="text-gray-900 font-medium hidden sm:block">
+                      {(user.user_metadata?.full_name || user.email?.split('@')[0] || 'Usuário')}
                     </span>
                     <svg 
                       className={`w-4 h-4 text-white transition-transform duration-200 ${showUserDropdown ? 'rotate-180' : ''}`}
