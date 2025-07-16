@@ -31,13 +31,16 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHo
     }
 
     try {
-      const { count, error } = await supabase
+      const { data, error } = await supabase
         .from('cart_items')
-        .select('*', { count: 'exact', head: true })
+        .select('quantity')
         .eq('user_id', user.id)
 
       if (error) throw error
-      setCartItemsCount(count || 0)
+      
+      // Sum all quantities instead of just counting rows
+      const totalItems = (data || []).reduce((sum, item) => sum + item.quantity, 0)
+      setCartItemsCount(totalItems)
     } catch (error) {
       console.error('Erro ao buscar itens do carrinho:', error)
     }
@@ -48,12 +51,25 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onAdminClick, onHo
     fetchCartItemsCount()
   }, [user])
 
+  // Listen for custom cart update events
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      fetchCartItemsCount()
+    }
+
+    window.addEventListener('cartUpdated', handleCartUpdate)
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate)
+    }
+  }, [])
+
   // Set up real-time subscription for cart updates
   useEffect(() => {
     if (!user) return
 
     const subscription = supabase
-      .channel('cart_changes')
+      .channel(`cart_changes_${user.id}`)
       .on('postgres_changes', 
         { 
           event: '*', 
