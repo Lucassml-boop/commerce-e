@@ -3,6 +3,9 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { useAuth } from './hooks/useAuth'
 import { Home } from './pages/Home'
+import { Products } from './pages/Products'
+import { Categories } from './pages/Categories'
+import { Offers } from './pages/Offers'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { Cart } from './pages/Cart'
@@ -21,6 +24,9 @@ const AppContent: React.FC = () => {
     <Routes>
       {/* Rotas públicas */}
       <Route path="/" element={<Home />} />
+      <Route path="/produtos" element={<Products />} />
+      <Route path="/categorias" element={<Categories />} />
+      <Route path="/ofertas" element={<Offers />} />
       <Route path="/produto/:id" element={<ProductDetails />} />
       
       {/* Rotas de autenticação (apenas para usuários não logados) */}
