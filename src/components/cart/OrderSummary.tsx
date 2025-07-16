@@ -28,7 +28,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({ total, onBack }) => 
       </div>
 
       <button
-        className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition-colors duration-200 mb-4"
+        className="w-full bg-blue-600 text-gray-900 py-3 px-4 rounded-lg font-bold hover:bg-blue-700 transition-colors duration-200 mb-4"
         onClick={() => alert('Funcionalidade de checkout em desenvolvimento!')}
       >
         Finalizar Compra
