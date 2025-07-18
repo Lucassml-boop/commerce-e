@@ -204,7 +204,7 @@ export const Cart: React.FC = () => {
           {cartItems.length === 0 ? (
             <div className="text-center py-16">
               <svg className="mx-auto h-24 w-24 text-gray-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L3 3m4 10v6a2 2 0 002 2h6a2 2 0 002-2v-6" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 7a2 2 0 01-2 2H8a2 2 0 01-2-2L5 9z" />
               </svg>
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">Seu carrinho está vazio</h3>
               <p className="text-gray-600 mb-6">Adicione alguns produtos para continuar suas compras.</p>

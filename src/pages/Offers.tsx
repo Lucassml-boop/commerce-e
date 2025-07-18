@@ -91,7 +91,7 @@ export const Offers: React.FC = () => {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              🔥 <span className="text-red-600">Super Ofertas</span> 🔥
+               <span className="text-red-600">Super Ofertas</span> 
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Aproveite nossas promoções especiais com descontos imperdíveis!

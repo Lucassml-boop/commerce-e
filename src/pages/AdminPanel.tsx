@@ -309,7 +309,7 @@ export const AdminPanel: React.FC = () => {
                 <p className="text-gray-600 mb-4">Nenhum produto cadastrado</p>
                 <button
                   onClick={() => setActiveTab('add')}
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-blue-600 text-gray-900 px-4 py-2 rounded hover:bg-blue-700"
                 >
                   Adicionar Primeiro Produto
                 </button>
@@ -417,7 +417,7 @@ export const AdminPanel: React.FC = () => {
                 {userProducts.filter(p => !p.is_on_offer).length > 0 && (
                   <div>
                     <h3 className="text-xl font-semibold mb-4 text-blue-600">
-                      🏪 Produtos Disponíveis para Oferta ({userProducts.filter(p => !p.is_on_offer).length})
+                       Produtos Disponíveis para Oferta ({userProducts.filter(p => !p.is_on_offer).length})
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {userProducts.filter(product => !product.is_on_offer).map(product => (
@@ -435,9 +435,9 @@ export const AdminPanel: React.FC = () => {
                           <p className="text-sm text-gray-500 mb-4">Estoque: {product.stock}</p>
                           <button
                             onClick={() => handleCreateOffer(product)}
-                            className="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 font-medium"
+                            className="w-full bg-green-600 text-gray-900 py-2 px-4 rounded hover:bg-green-700 font-medium"
                           >
-                            ✨ Criar Oferta
+                             Criar Oferta
                           </button>
                         </div>
                       ))}

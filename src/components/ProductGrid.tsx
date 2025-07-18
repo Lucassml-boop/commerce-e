@@ -238,7 +238,7 @@ export const ProductGrid: React.FC = () => {
                   
                   {/* Badge de oferta */}
                   {product.is_on_offer && product.discount_percentage && (
-                    <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                    <div className="absolute top-4 left-4 bg-red-500 text-red-500 px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                       -{Math.round(product.discount_percentage)}% OFF
                     </div>
                   )}
@@ -254,7 +254,7 @@ export const ProductGrid: React.FC = () => {
                   </div>
                   {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">Esgotado</span>
+                      <span className="text-gray-900 font-bold text-lg">Esgotado</span>
                     </div>
                   )}
                 </div>
