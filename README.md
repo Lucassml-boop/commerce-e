@@ -1,69 +1,108 @@
-# React + TypeScript + Vite
+# 🚀 TechStore - E-commerce Moderno com React, TypeScript, Tailwind e Supabase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TechStore Banner](public/icon.png)
 
-Currently, two official plugins are available:
+Bem-vindo ao **TechStore**, um projeto completo de e-commerce desenvolvido para demonstrar habilidades profissionais em frontend e backend moderno. Este repositório é ideal para quem busca mostrar domínio em tecnologias atuais e arquitetura de aplicações reais para recrutadores e empresas de tecnologia.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ **Destaques do Projeto**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend moderno:** React 19 + TypeScript + Vite
+- **UI profissional:** Tailwind CSS, design responsivo, UX de alto nível
+- **Backend serverless:** Supabase (Auth, Database, Storage, Policies)
+- **Arquitetura escalável:** Componentização, hooks customizados, contextos, separação de responsabilidades
+- **Funcionalidades:**
+  - Autenticação segura (login, registro, logout)
+  - Catálogo de produtos com busca, filtros e categorias
+  - Carrinho de compras persistente
+  - Painel administrativo (CRUD de produtos, upload de imagens, ofertas)
+  - Políticas de segurança (RLS) e permissões por usuário
+  - Upload de imagens com preview e storage público
+  - Sistema de ofertas e descontos
+  - Experiência mobile-first
+- **Código limpo:** Tipagem forte, ESLint, organização de pastas
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🖥️ **Stack Utilizada**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React 19** + **TypeScript**
+- **Vite** (build ultra-rápido)
+- **Tailwind CSS** (UI moderna e responsiva)
+- **Supabase** (Auth, Database, Storage)
+- **ESLint** (qualidade de código)
+- **React Router** (SPA)
+
+---
+
+## ⚙️ **Como rodar o projeto localmente**
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/techstore
+
+# Instale as dependências
+npm install
+
+
+# Rode o projeto
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔒 **Demonstração de Segurança**
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Políticas RLS no Supabase: cada usuário só pode editar/excluir seus próprios produtos
+- Autenticação JWT
+- Validação de formulários e feedback de erros
+
+---
+
+## 🛠️ **Funcionalidades Técnicas**
+
+- **Autenticação:** Registro, login, logout, proteção de rotas
+- **Produtos:** CRUD completo, upload de imagens, preview, categorias, busca, filtros
+- **Carrinho:** Adição, remoção, atualização de quantidade, resumo do pedido
+- **Admin:** Gerenciamento de produtos, ofertas, exclusão segura
+- **Ofertas:** Sistema de descontos, destaque de promoções
+- **UX:** Loading states, feedback visual, navegação fluida
+
+---
+
+## 📁 **Estrutura de Pastas**
+
 ```
+commerce-e/
+├── public/
+├── src/
+│   ├── components/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── lib/
+│   ├── pages/
+│   ├── assets/
+│   └── index.css
+├── README-SETUP.md
+├── database-setup.sql
+├── database-update.sql
+├── storage-setup.sql
+└── ...
+```
+
+---
+
+## 💬 **Contato**
+
+- [Seu LinkedIn](https://www.linkedin.com/in/lucas-samuel-borges-b551481b8/)
+- [Seu Portfólio](https://portifolio-azure-psi-75.vercel.app/)
+- [Email](lucas.samuel23borges@gmail.com)
+
+---
+
+## ⭐ **Se gostou, deixe uma estrela!**
+
+---
+
+**Desenvolvido com ❤️ por [Lucas Samuel Borges]**
