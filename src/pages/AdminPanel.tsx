@@ -435,7 +435,7 @@ export const AdminPanel: React.FC = () => {
                           <p className="text-sm text-gray-500 mb-4">Estoque: {product.stock}</p>
                           <button
                             onClick={() => handleCreateOffer(product)}
-                            className="w-full bg-green-600 text-gray-900 py-2 px-4 rounded hover:bg-green-700 font-medium"
+                            className="w-full bg-white text-gray-900 py-2 px-4 rounded hover:bg-green-700 font-medium"
                           >
                              Criar Oferta
                           </button>

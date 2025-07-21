@@ -86,7 +86,7 @@ export const ProductManagerGrid: React.FC<ProductManagerGridProps> = ({
             <div className="flex space-x-2">
               <button
                 onClick={() => onEdit(product)}
-                className="flex-1 bg-blue-600 text-gray-900 py-2 px-3 rounded text-sm hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-white text-gray-900 py-2 px-3 rounded text-sm hover:bg-blue-700 transition-colors"
               >
                 Editar
               </button>
@@ -94,7 +94,7 @@ export const ProductManagerGrid: React.FC<ProductManagerGridProps> = ({
               <button
                 onClick={() => onDelete(product.id)}
                 disabled={deletingProduct === product.id}
-                className="flex-1 bg-red-600 text-red-600 py-2 px-3 rounded text-sm hover:bg-red-700 transition-colors disabled:opacity-50"
+                className="flex-1 bg-white text-red-600 py-2 px-3 rounded text-sm hover:bg-red-400 transition-colors disabled:opacity-50"
               >
                 {deletingProduct === product.id ? 'Excluindo...' : 'Excluir'}
               </button>
@@ -102,7 +102,7 @@ export const ProductManagerGrid: React.FC<ProductManagerGridProps> = ({
               {!product.is_on_offer && (
                 <button
                   onClick={() => onCreateOffer(product)}
-                  className="flex-1 bg-green-600 text-gray-900 py-2 px-3 rounded text-sm hover:bg-green-700 transition-colors"
+                  className="flex-1 bg-white text-gray-900 py-2 px-3 rounded text-sm hover:bg-green-700 transition-colors"
                 >
                   Oferta
                 </button>
