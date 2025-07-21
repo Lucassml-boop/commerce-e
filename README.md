@@ -2,7 +2,7 @@
 
 ![TechStore Banner](public/icon.png)
 
-Bem-vindo ao **TechStore**, um projeto completo de e-commerce desenvolvido para demonstrar habilidades profissionais em frontend e backend moderno. Este repositório é ideal para quem busca mostrar domínio em tecnologias atuais e arquitetura de aplicações reais para recrutadores e empresas de tecnologia.
+Bem-vindo ao **TechStore**, um projeto completo de e-commerce desenvolvido para demonstrar habilidades profissionais em frontend.
 
 ---
 
