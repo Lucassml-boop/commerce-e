@@ -91,8 +91,8 @@ commerce-e/
 
 ## 💬 **Contato**
 
-- [Seu LinkedIn](https://www.linkedin.com/in/lucas-samuel-borges-b551481b8/)
-- [Seu Portfólio](https://portifolio-azure-psi-75.vercel.app/)
+- [LinkedIn](https://www.linkedin.com/in/lucas-samuel-borges-b551481b8/)
+- [Portfólio](https://portifolio-azure-psi-75.vercel.app/)
 - [Email](lucas.samuel23borges@gmail.com)
 
 ---
