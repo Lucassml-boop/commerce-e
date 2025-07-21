@@ -84,10 +84,6 @@ commerce-e/
 │   ├── pages/
 │   ├── assets/
 │   └── index.css
-├── README-SETUP.md
-├── database-setup.sql
-├── database-update.sql
-├── storage-setup.sql
 └── ...
 ```
 
