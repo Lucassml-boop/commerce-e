@@ -28,14 +28,15 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
 
     setLoading(true)
     try {
-      // Try to insert with user_id first, if it fails, insert without it
+      // Sempre inclua created_by com o ID do usuário autenticado
       let insertData: any = {
         ...formData,
         price: Number(formData.price),
-        stock: Number(formData.stock)
+        stock: Number(formData.stock),
+        created_by: user.id
       }
 
-      // Try to add user_id if the column exists
+      // Tente adicionar user_id se a coluna existir
       try {
         insertData.user_id = user.id
         const { error } = await supabase
@@ -43,7 +44,7 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
           .insert(insertData)
 
         if (error) {
-          // If error is about user_id column not existing, try without it
+          // Se o erro for sobre a coluna user_id, tente sem ela
           if (error.message.includes('user_id does not exist')) {
             delete insertData.user_id
             const { error: retryError } = await supabase
