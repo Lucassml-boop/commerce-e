@@ -189,9 +189,9 @@ export const Offers: React.FC = () => {
                     
                     <button
                       onClick={() => addToCart(product.id)}
-                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-bold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                      className="w-full bg-white hover:bg-red-700 text-gray-700 py-3 px-4 rounded-lg font-bold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-1"
                     >
-                      🛒 Aproveitar Oferta
+                       Aproveitar Oferta
                     </button>
                   </div>
                 </div>
