@@ -18,7 +18,6 @@ export const AdminPanel: React.FC = () => {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Estados para o modal de edição
   const [showEditModal, setShowEditModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<ProductWithOffer | null>(null)
   const [name, setName] = useState('')
@@ -27,38 +26,27 @@ export const AdminPanel: React.FC = () => {
   const [stock, setStock] = useState(0)
   const [category, setCategory] = useState('')
   const [imageUrl, setImageUrl] = useState('')
-
-  // Estados para ofertas
   const [showOfferModal, setShowOfferModal] = useState(false)
   const [selectedProductForOffer, setSelectedProductForOffer] = useState<ProductWithOffer | null>(null)
   const [discountPercentage, setDiscountPercentage] = useState(0)
   const [offerStartDate, setOfferStartDate] = useState('')
   const [offerEndDate, setOfferEndDate] = useState('')
-
-  // Estados para exclusão
   const [deletingProduct, setDeletingProduct] = useState<string | null>(null)
 
-  useEffect(() => {
-    if ((activeTab === 'manage' || activeTab === 'offers') && user) {
-      fetchUserProducts()
-    }
-  }, [activeTab, user])
 
-  const fetchUserProducts = async () => {
+  const fetchUserProducts = React.useCallback(async () => {
     if (!user) return
 
     setLoadingProducts(true)
     try {
-      // First, let's check if user_id column exists by trying a simple query
       const { data, error } = await supabase
         .from('products')
         .select('*')
         .order('created_at', { ascending: false })
 
+      console.log('[PRODUTOS] fetchUserProducts resultado:', { error, data })
+
       if (error) throw error
-      
-      // For now, show all products since user_id column doesn't exist
-      // In a real scenario, you'd want to add user_id column to products table
       setUserProducts(data || [])
     } catch (error) {
       console.error('Erro ao buscar produtos:', error)
@@ -66,7 +54,13 @@ export const AdminPanel: React.FC = () => {
     } finally {
       setLoadingProducts(false)
     }
-  }
+  }, [user])
+
+  useEffect(() => {
+    if ((activeTab === 'manage' || activeTab === 'offers') && user) {
+      fetchUserProducts()
+    }
+  }, [activeTab, user, fetchUserProducts])
 
   const handleProductAdded = () => {
     setMessage('Produto adicionado com sucesso!')
@@ -162,14 +156,23 @@ export const AdminPanel: React.FC = () => {
   }
 
   const handleSaveOffer = async () => {
-    if (!selectedProductForOffer || !discountPercentage) return
+    if (!selectedProductForOffer || !discountPercentage) return;
 
-    setLoading(true)
+    setLoading(true);
     try {
-      const originalPrice = selectedProductForOffer.price
-      const discountedPrice = originalPrice * (1 - discountPercentage / 100)
+      const originalPrice = selectedProductForOffer.original_price ?? selectedProductForOffer.price;
+      const discountedPrice = originalPrice * (1 - discountPercentage / 100);
 
-      const { error } = await supabase
+      console.log('[OFERTA] Atualizando produto:', selectedProductForOffer.id, {
+        is_on_offer: true,
+        original_price: originalPrice,
+        price: discountedPrice,
+        discount_percentage: discountPercentage,
+        offer_start_date: offerStartDate,
+        offer_end_date: offerEndDate
+      });
+
+      const { error, data } = await supabase
         .from('products')
         .update({
           is_on_offer: true,
@@ -179,19 +182,24 @@ export const AdminPanel: React.FC = () => {
           offer_start_date: offerStartDate,
           offer_end_date: offerEndDate
         })
-        .eq('id', selectedProductForOffer.id)
+            .eq('id', String(selectedProductForOffer.id))
+        .select();
 
-      if (error) throw error
+      console.log('[OFERTA] Resultado update:', { error, data });
+      if (Array.isArray(data) && data.length === 0) {
+        console.warn('[OFERTA] Nenhum produto foi atualizado. Verifique se o ID está correto e se há permissões suficientes.');
+      }
+      if (error) throw error;
 
-      setMessage('Oferta criada com sucesso!')
-      setShowOfferModal(false)
-      setSelectedProductForOffer(null)
-      fetchUserProducts()
+      setMessage('Oferta criada com sucesso!');
+      setShowOfferModal(false);
+      setSelectedProductForOffer(null);
+      await fetchUserProducts();
     } catch (error) {
-      console.error('Erro ao criar oferta:', error)
-      setMessage('Erro ao criar oferta')
+      console.error('Erro ao criar oferta:', error);
+      setMessage('Erro ao criar oferta');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -221,7 +229,7 @@ export const AdminPanel: React.FC = () => {
       <div className="max-w-7xl mx-auto py-8 px-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Painel Administrativo</h1>
 
-        {/* Navigation Tabs */}
+      setMessage('Erro ao carregar produtos.')
         <div className="border-b border-gray-200 mb-8">
           <nav className="-mb-px flex space-x-8">
             <button
@@ -257,14 +265,14 @@ export const AdminPanel: React.FC = () => {
           </nav>
         </div>
 
-        {/* Message */}
+        {/* Mensagem de feedback */}
         {message && (
           <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
             {message}
           </div>
         )}
 
-        {/* Tab Content */}
+        {/* Conteúdo das abas */}
         {activeTab === 'add' && (
           <AddProductForm
             onSuccess={handleProductAdded}
@@ -489,7 +497,8 @@ export const AdminPanel: React.FC = () => {
                     type="number"
                     value={price}
                     onChange={(e) => setPrice(parseFloat(e.target.value))}
-                    className="w-full border border-gray-300 rounded px-3 py-2"
+                    className="w-full border border-gray-300 rounded px-3 py-2 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                    style={{ MozAppearance: 'textfield' }}
                   />
                 </div>
 
@@ -499,7 +508,8 @@ export const AdminPanel: React.FC = () => {
                     type="number"
                     value={stock}
                     onChange={(e) => setStock(parseInt(e.target.value))}
-                    className="w-full border border-gray-300 rounded px-3 py-2"
+                    className="w-full border border-gray-300 rounded px-3 py-2 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                    style={{ MozAppearance: 'textfield' }}
                   />
                 </div>
 
@@ -569,7 +579,8 @@ export const AdminPanel: React.FC = () => {
                     onChange={(e) => setDiscountPercentage(parseFloat(e.target.value))}
                     min="1"
                     max="90"
-                    className="w-full border border-gray-300 rounded px-3 py-2"
+                    className="w-full border border-gray-300 rounded px-3 py-2 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-inner-spin-button]:m-0"
+                    style={{ MozAppearance: 'textfield' }}
                   />
                 </div>
 
@@ -581,7 +592,8 @@ export const AdminPanel: React.FC = () => {
                     type="date"
                     value={offerStartDate}
                     onChange={(e) => setOfferStartDate(e.target.value)}
-                    className="w-full border border-gray-300 rounded px-3 py-2"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500"
+                    style={{ colorScheme: 'light' }}
                   />
                 </div>
 
@@ -593,7 +605,8 @@ export const AdminPanel: React.FC = () => {
                     type="date"
                     value={offerEndDate}
                     onChange={(e) => setOfferEndDate(e.target.value)}
-                    className="w-full border border-gray-300 rounded px-3 py-2"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500"
+                    style={{ colorScheme: 'light' }}
                   />
                 </div>
 
