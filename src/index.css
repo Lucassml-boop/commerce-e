@@ -1,20 +1,17 @@
 @import "tailwindcss";
 
+/* Fontes e suavização */
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scroll behavior */
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
@@ -23,16 +20,13 @@ html {
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
 }
@@ -48,14 +42,9 @@ html {
 
 /* Loading animation */
 @keyframes shimmer {
-  0% {
-    background-position: -468px 0;
-  }
-  100% {
-    background-position: 468px 0;
-  }
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
 }
-
 .shimmer {
   animation: shimmer 1.5s ease-in-out infinite;
   background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
@@ -73,7 +62,6 @@ html {
 .gradient-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
-
 .gradient-secondary {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
@@ -82,7 +70,6 @@ html {
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .hover-lift:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -94,34 +81,14 @@ html {
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  
-  body {
-    color: #213547;
-    background-color: #ffffff;
-  }
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* Remove regras globais que conflitam com Tailwind */
 body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
+  /* Não defina cor ou bg aqui, deixe para Tailwind */
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -129,15 +96,16 @@ h1 {
   line-height: 1.1;
 }
 
+/* Não sobrescreva background dos botões, deixe para Tailwind */
 button {
-border-radius: 8px;
-border: 1px solid transparent;
-padding: 0.6em 1.2em;
-font-size: 1em;
-font-weight: 500;
-font-family: inherit;
-cursor: pointer;
-transition: border-color 0.25s;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
@@ -147,15 +115,25 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Links */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* Corrija dark mode para não inverter cores do Tailwind */
+@media (prefers-color-scheme: dark) {
+  /* Não altere :root ou body, deixe Tailwind controlar */
+}
+
+/* Corrija light mode para não sobrescrever Tailwind */
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+  /* Não altere :root ou body, deixe Tailwind controlar */
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }

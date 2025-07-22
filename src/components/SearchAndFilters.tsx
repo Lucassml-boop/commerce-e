@@ -26,7 +26,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
   const [maxPrice, setMaxPrice] = useState('')
   const [searchTerm, setSearchTerm] = useState(currentSearch)
 
-  // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
       onSearchChange(searchTerm)
@@ -55,7 +54,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
     <div className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-4">
-          {/* Barra de busca principal */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="flex-1 max-w-lg">
               <div className="relative">
@@ -85,7 +83,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Ordenação rápida */}
               <div className="hidden sm:block">
                 <select
                   value={currentSort}
@@ -100,7 +97,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                 </select>
               </div>
 
-              {/* Botão de filtros */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -118,11 +114,9 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
             </div>
           </div>
 
-          {/* Painel de filtros expandido */}
           {showFilters && (
             <div className="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* Filtro por categoria */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Categoria
@@ -141,7 +135,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   </select>
                 </div>
 
-                {/* Filtro por faixa de preço */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Preço Mínimo
@@ -184,7 +177,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   </div>
                 </div>
 
-                {/* Ordenação mobile */}
                 <div className="sm:hidden">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Ordenar por
@@ -202,7 +194,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   </select>
                 </div>
 
-                {/* Botão limpar filtros */}
                 <div className="flex items-end">
                   <button
                     onClick={clearFilters}
@@ -218,7 +209,6 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
             </div>
           )}
 
-          {/* Tags de filtros ativos */}
           {(currentSearch || currentCategory || minPrice || maxPrice) && (
             <div className="mt-4 flex flex-wrap gap-2">
               {currentSearch && (
