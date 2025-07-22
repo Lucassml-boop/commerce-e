@@ -12,6 +12,9 @@ import { Cart } from './pages/Cart'
 import { AdminPanel } from './pages/AdminPanel'
 import { ProductDetails } from './pages/ProductDetails'
 import { LoadingSpinner } from './components/LoadingSpinner'
+import { About } from './pages/About'
+import { Contact } from './pages/Contact'
+import { FAQ } from './pages/FAQ'
 
 const AppContent: React.FC = () => {
   const { user, loading } = useAuth()
@@ -28,6 +31,9 @@ const AppContent: React.FC = () => {
       <Route path="/categorias" element={<Categories />} />
       <Route path="/ofertas" element={<Offers />} />
       <Route path="/produto/:id" element={<ProductDetails />} />
+      <Route path="/sobre" element={<About />} />
+      <Route path="/contato" element={<Contact />} />
+      <Route path="/faq" element={<FAQ />} />
       
       {/* Rotas de autenticação (apenas para usuários não logados) */}
       <Route 
