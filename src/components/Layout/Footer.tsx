@@ -56,10 +56,38 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Categorias</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Smartphones</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Laptops</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Acessórios</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Gaming</a></li>
+              <li>
+                <Link
+                  to={`/produtos?categoria=${encodeURIComponent('Smartphones')}`}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Smartphones
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/produtos?categoria=${encodeURIComponent('Laptops')}`}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Laptops
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/produtos?categoria=${encodeURIComponent('Acessórios')}`}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Acessórios
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/produtos?categoria=${encodeURIComponent('Gaming')}`}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Gaming
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
